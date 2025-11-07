@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="DirextXTK">
+      <UniqueIdentifier>{806eea5d-af2c-4c92-8542-f663696d746e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectXTex">
+      <UniqueIdentifier>{4024b56f-8ea1-41fa-9e4a-1b7546a6d8d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirextXTK\include">
+      <UniqueIdentifier>{a1aa5308-7c9b-4a32-8b80-46155098a0ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectXTex\include">
+      <UniqueIdentifier>{fb09b909-ea56-453c-b51b-4add5169b0fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectXTex\debug_lib">
+      <UniqueIdentifier>{205f5718-2da3-4127-9724-b429d35447f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectXTex\Release">
+      <UniqueIdentifier>{b5d3d416-3da5-40db-b168-59ab58bff1cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirextXTK\debug_lib">
+      <UniqueIdentifier>{4d38a673-3564-466b-8f02-31ff1fe8bf50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirextXTK\release_lib">
+      <UniqueIdentifier>{73c0d651-01cb-4bd0-940c-19438e5793b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tinygltf">
+      <UniqueIdentifier>{a572b3d8-8e7a-459e-810d-3ad05acbc28b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\Audio.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\BufferHelpers.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\CommonStates.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\DDSTextureLoader.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\DirectXHelpers.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\Effects.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\GamePad.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\GeometricPrimitive.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\GraphicsMemory.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\Keyboard.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\Model.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\Mouse.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\PostProcess.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\PrimitiveBatch.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\ScreenGrab.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\SimpleMath.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\SpriteBatch.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\SpriteFont.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\VertexTypes.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\WICTextureLoader.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTK\include\XboxDDSTextureLoader.h">
+      <Filter>DirextXTK\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTex\include\BC.h">
+      <Filter>DirectXTex\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTex\include\BCDirectCompute.h">
+      <Filter>DirectXTex\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTex\include\DDS.h">
+      <Filter>DirectXTex\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTex\include\DirectXTex.h">
+      <Filter>DirectXTex\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTex\include\DirectXTexP.h">
+      <Filter>DirectXTex\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTex\include\filters.h">
+      <Filter>DirectXTex\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectXTex\include\scoped.h">
+      <Filter>DirectXTex\include</Filter>
+    </ClInclude>
+    <ClInclude Include="source\main.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tinygltf\json.hpp">
+      <Filter>tinygltf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tinygltf\stb_image.h">
+      <Filter>tinygltf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tinygltf\stb_image_write.h">
+      <Filter>tinygltf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tinygltf\tiny_gltf.h">
+      <Filter>tinygltf</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SquareThrustRenderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CameraBehaviour.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Player.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MapData.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CreateDefaultScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tinygltf\tiny_gltf.cc">
+      <Filter>tinygltf</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SquareThrustRenderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CameraBehaviour.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Player.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MapData.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\floor.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\gradation.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\Albedo.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\brick-1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\brick-2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\wall-1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\wall-2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\wood-1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\wood-2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\space_frigate.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="game.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Resource\Albedo.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Resource\AlbedoShade.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Resource\SimpleShade.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Resource\SimpleSkin.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\DirectXTK\include\SimpleMath.inl">
+      <Filter>DirextXTK\include</Filter>
+    </None>
+    <None Include="..\DirectXTex\include\DirectXTex.inl">
+      <Filter>DirectXTex\include</Filter>
+    </None>
+    <None Include="Resource\M PLUS 1.spritefont">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Resource\ModularCharacter.glb">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Resource\ModularCharacterPBR.glb">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Resource\space_frigate_0.glb">
+      <Filter>リソース ファイル</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\DirectXTK\release_lib\DirectXTK.lib">
+      <Filter>DirextXTK\release_lib</Filter>
+    </Library>
+    <Library Include="..\DirectXTK\debug_lib\DirectXTK.lib">
+      <Filter>DirextXTK\debug_lib</Filter>
+    </Library>
+    <Library Include="..\DirectXTex\debug_lib\DirectXTex.lib">
+      <Filter>DirectXTex\debug_lib</Filter>
+    </Library>
+    <Library Include="..\DirectXTex\release_lib\DirectXTex.lib">
+      <Filter>DirectXTex\Release</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resource\map_data.txt">
+      <Filter>リソース ファイル</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
