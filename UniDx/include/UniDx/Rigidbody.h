@@ -50,6 +50,7 @@ public:
     virtual void Awake() override
     {
         position_ = transform->position;
+        rotation_ = transform->rotation;
     }
 
     virtual void OnEnable() override

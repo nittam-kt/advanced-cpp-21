@@ -6,7 +6,12 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "GameObject_impl.h"
+#include "Random.h"
 #include "Behaviour.h"
+#include "Rigidbody.h"
+#include "Collider.h"
+#include "Camera.h"
+#include "Light.h"
 
 
 namespace UniDx

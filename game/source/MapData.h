@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 class MapData
 {
@@ -16,5 +17,7 @@ public:
 
 protected:
 	static inline std::unique_ptr<MapData> _instance;
+
+	std::vector< std::string > data;
 };
 

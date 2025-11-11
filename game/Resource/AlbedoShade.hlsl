@@ -1,6 +1,8 @@
 // ----------------------------------------------------------
 // 頂点
 // ----------------------------------------------------------
+
+// 行列定数バッファ
 cbuffer VSConstants : register(b0)
 {
     float4x4 world;
@@ -47,6 +49,13 @@ PSInput VS(VSInput vin)
 // ----------------------------------------------------------
 // ピクセル
 // ----------------------------------------------------------
+
+// マテリアル定数バッファ
+cbuffer PSConstants : register(b1)
+{
+    float4 baseColor;
+};
+
 struct GPULight
 {
     float3 posOrDirWS;
@@ -121,8 +130,8 @@ float4 PS(PSInput In) : SV_Target0
     }
 
     const float4 Ambient = float4(0.1f, 0.1f, 0.1f, 1);    // 環境光。ここでは固定
-    float4 color = (diffAccum + Ambient) * albedo;
+    float4 color = (diffAccum + Ambient) * albedo * baseColor;
 
-    // テクスチャの色を出力
+    // 最終カラーを出力
     return color;
 }

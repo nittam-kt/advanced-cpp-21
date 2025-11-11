@@ -5,13 +5,8 @@
 
 #include <UniDx.h>
 #include <UniDx/Scene.h>
-#include <UniDx/Camera.h>
 #include <UniDx/PrimitiveRenderer.h>
 #include <UniDx/GltfModel.h>
-#include <UniDx/Rigidbody.h>
-#include <UniDx/Random.h>
-#include <UniDx/Collider.h>
-#include <UniDx/Light.h>
 #include <UniDx/Canvas.h>
 #include <UniDx/TextMesh.h>
 #include <UniDx/Font.h>
@@ -56,37 +51,92 @@ unique_ptr<GameObject> createMap(GameObject* player)
 {
     // マップデータ作成
     MapData::create();
+    MapData::getInstance()->load("Resource/map_data.txt");
 
     // マテリアルの作成
-    auto material = std::make_shared<Material>();
+    auto wallMat = std::make_shared<Material>();
 
     // シェーダを指定してコンパイル
-    material->shader.compile<VertexPNT>(L"Resource/AlbedoShade.hlsl");
+    wallMat->shader.compile<VertexPNT>(L"Resource/AlbedoShade.hlsl");
 
-    // 壁のテクスチャ作成
-    auto texture = std::make_shared<Texture>();
-    texture->Load(L"Resource/wall-1.png");
-    material->AddTexture(std::move(texture));
+    // 壁テクスチャ作成
+    auto wallTex = std::make_shared<Texture>();
+    wallTex->Load(L"Resource/wall-1.png");
+    wallMat->AddTexture(std::move(wallTex));
+
+    // 敵テクスチャ作成
+    auto enemyTex = std::make_shared<Texture>();
+    enemyTex->Load(L"Resource/Universal_A_Alb.png");
 
     // マップ作成
     auto map = make_unique<GameObject>();
 
     // 各ブロック作成
+    for (int i = 0; i < MapData::getInstance()->getWidth(); i++)
     {
-        auto rb = make_unique<Rigidbody>();
-        rb->gravityScale = 0;
-        rb->mass = numeric_limits<float>::infinity();
+        for (int j = 0; j < MapData::getInstance()->getHeight(); j++)
+        {
+            switch (MapData::getInstance()->getData(i, j))
+            {
+            case '#':
+            {
+                auto rb = make_unique<Rigidbody>();
+                rb->gravityScale = 0;
+                rb->mass = numeric_limits<float>::infinity();
 
-        // 壁オブジェクトを作成
-        auto wall = make_unique<GameObject>(L"壁",
-            CubeRenderer::create<VertexPNT>(material),
-            move(rb),
-            make_unique<AABBCollider>());
-        wall->transform->localScale = Vector3(2, 2, 2);
-        wall->transform->localPosition = Vector3(0, 0, 2);
+                // 壁オブジェクトを作成
+                auto wall = make_unique<GameObject>(L"壁",
+                    CubeRenderer::create<VertexPNT>(wallMat),
+                    move(rb),
+                    make_unique<AABBCollider>());
+                wall->transform->localScale = Vector3(2, 2, 2);
+                wall->transform->localPosition = Vector3(
+                    i * 2 - float(MapData::getInstance()->getWidth() / 2) * 2,
+                    0,
+                    j * -2 + float(MapData::getInstance()->getHeight() / 2) * 2
+                );
 
-        // 壁の親をマップにする
-        Transform::SetParent(move(wall), map->transform);
+                // 壁の親をマップにする
+                Transform::SetParent(move(wall), map->transform);
+            }
+            break;
+
+            case 'E':
+            {
+                // 敵オブジェクトを作成
+                auto enemy = make_unique<GameObject>(L"敵",
+                    make_unique<GltfModel>(),
+                    make_unique<Rigidbody>(),
+                    make_unique<SphereCollider>(Vector3(0, 0.25f, 0), 1.5f)
+                    );
+                auto model = enemy->GetComponent<GltfModel>(true);
+                model->Load<VertexPNT>(
+                    L"Resource/Pumpkin-carved-lit-a.glb",
+                    L"Resource/AlbedoShade.hlsl",
+                    enemyTex);
+
+                // マテリアルカラーを半透明にする
+                for (auto& mat : model->GetMaterials())
+                {
+                    mat->color = Color(1, 1, 1, 0.3f);
+                }
+
+                enemy->transform->localPosition = Vector3(
+                    i * 2 - float(MapData::getInstance()->getWidth() / 2) * 2,
+                    -0.5f,
+                    j * -2 + float(MapData::getInstance()->getHeight() / 2) * 2
+                );
+                enemy->transform->localScale = Vector3(3, 3, 3);
+
+                // 敵の親をマップにする
+                Transform::SetParent(move(enemy), map->transform);
+            }
+            break;
+
+            default:
+                break;
+            }
+        }
     }
 
     return move(map);
@@ -94,14 +144,14 @@ unique_ptr<GameObject> createMap(GameObject* player)
 
 
 unique_ptr<Scene> CreateDefaultScene()
-{    
+{
     // -- プレイヤー --
     auto playerObj = make_unique<GameObject>(L"プレイヤー",
         make_unique<GltfModel>(),
-        make_unique<Player>(),
         make_unique<Rigidbody>(),
-        make_unique<SphereCollider>(Vector3(0, 0.25f, 0))
-    );
+        make_unique<SphereCollider>(Vector3(0, 0.25f, 0)),
+        make_unique<Player>()
+        );
     auto model = playerObj->GetComponent<GltfModel>(true);
     model->Load<VertexPNT>(
         L"Resource/ModularCharacterPBR.glb",
@@ -120,7 +170,7 @@ unique_ptr<Scene> CreateDefaultScene()
         move(rb),
         make_unique<AABBCollider>());
     floor->transform->localPosition = Vector3(0.0f, -1.5f, 0.0f);
-    floor->transform->localScale = Vector3(6, 1, 6);
+    floor->transform->localScale = Vector3(26, 1, 26);
 
     // -- カメラ --
     auto cameraBehaviour = make_unique<CameraBehaviour>();

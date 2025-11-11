@@ -28,7 +28,7 @@ public:
 
     const std::vector<std::unique_ptr<Component>>& GetComponents() { return components; }
 
-    GameObject(const wstring& name = L"GameObject") : Object([this](){return name_;}), name_(name)
+    GameObject(wstring_view n = L"GameObject") : Object([this](){return wstring_view(name_);}), name_(n)
     {
         // デフォルトでTransformを追加
         transform = AddComponent<Transform>();
@@ -36,7 +36,7 @@ public:
     // 可変長引数でunique_ptr<Component>を受け取るコンストラクタ
     template<typename First, typename... ComponentPtrs>
         requires (!std::same_as<std::remove_cvref_t<First>, Vector3>)
-    GameObject(const wstring& name, First&& first, ComponentPtrs&&... rest) : GameObject(name)
+    GameObject(wstring_view name, First&& first, ComponentPtrs&&... rest) : GameObject(name)
     {
         Add(std::forward<First>(first), std::forward<ComponentPtrs>(rest)...);
     }

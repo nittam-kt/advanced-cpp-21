@@ -31,4 +31,11 @@ class Transform;
 
 typedef std::vector<unique_ptr<GameObject>> GameObjectContainer;
 
+// レンダリングモード
+enum RenderingMode
+{
+	RenderingMode_Opaque,
+	RenderingMode_Transparent
+};
+
 }

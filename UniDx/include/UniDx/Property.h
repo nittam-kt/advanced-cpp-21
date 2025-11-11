@@ -1,38 +1,42 @@
-#pragma once
+ï»¿#pragma once
 
 #include <functional>
 
 //
-// C#‚ÌƒvƒƒpƒeƒBƒ‰ƒCƒN‚È‹Lq‚ğÀŒ»‚·‚éƒNƒ‰ƒX
+// C#ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãƒ©ã‚¤ã‚¯ãªè¨˜è¿°ã‚’å®Ÿç¾ã™ã‚‹ã‚¯ãƒ©ã‚¹
 // ReadOnlyProperty<>
 // Property<>
 // 
 namespace UniDx
 {
 
-// “Ç‚İæ‚èê—pƒvƒƒpƒeƒB
+// èª­ã¿å–ã‚Šå°‚ç”¨ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 template<typename T>
 class ReadOnlyProperty
 {
 public:
     using Getter = std::function<T()>;
 
-    // Getter‚ğ—^‚¦‚éƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    // Getterã‚’ä¸ãˆã‚‹ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     ReadOnlyProperty(Getter getter)
         : getter_(getter) {
     }
 
-    // ’l‚Ìæ“¾
+    // å€¤ã®å–å¾—
     T get() const { return getter_(); }
 
-    // ’l‚Ì•ÏŠ·
+    // å€¤ã®å¤‰æ›
     operator T() const { return getter_(); }
+
+    // ä¸‰æ–¹æ¯”è¼ƒæ¼”ç®—
+    template<typename U>
+    auto operator<=>(const U& rhs) const { return getter_() <=> rhs; }
 
 protected:
     Getter getter_;
 };
 
-// “Ç‚İæ‚èê—pƒvƒƒpƒeƒBƒ|ƒCƒ“ƒ^”Å
+// èª­ã¿å–ã‚Šå°‚ç”¨ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãƒã‚¤ãƒ³ã‚¿ç‰ˆ
 template<typename T>
 class ReadOnlyProperty<T*>
 {
@@ -43,13 +47,13 @@ public:
         : getter_(getter) {
     }
 
-    // ’l‚Ìæ“¾
+    // å€¤ã®å–å¾—
     T* get() const { return getter_(); }
 
-    // ’l‚Ì•ÏŠ·
+    // å€¤ã®å¤‰æ›
     operator T*() const { return getter_(); }
 
-    // ƒƒ“ƒoƒAƒNƒZƒX
+    // ãƒ¡ãƒ³ãƒã‚¢ã‚¯ã‚»ã‚¹
     T* operator->() { return getter_(); }
     const T* operator->() const { return getter_(); }
 
@@ -57,7 +61,7 @@ protected:
     Getter getter_;
 };
 
-// “Ç‚İ‘‚«ƒvƒƒpƒeƒB
+// èª­ã¿æ›¸ããƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 template<typename T>
 class Property : public ReadOnlyProperty<T>
 {
@@ -69,10 +73,10 @@ public:
         : ReadOnlyProperty<T>(getter), setter_(setter) {
     }
 
-    // ’l‚Ìİ’è
+    // å€¤ã®è¨­å®š
     void set(const T& value) { setter_(value); }
 
-    // C#•—‚ÌƒAƒNƒZƒX
+    // C#é¢¨ã®ã‚¢ã‚¯ã‚»ã‚¹
     Property& operator=(const T& value) { set(value); return *this; }
 
 private:

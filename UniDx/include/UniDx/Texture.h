@@ -18,7 +18,7 @@ class Camera;
 class Texture : public Object
 {
 public:
-    Texture() : Object([this]() {return fileName; }),
+    Texture() : Object([this]() {return wstring_view(fileName); }),
         wrapModeU(D3D11_TEXTURE_ADDRESS_CLAMP),
         wrapModeV(D3D11_TEXTURE_ADDRESS_CLAMP),
         m_info()

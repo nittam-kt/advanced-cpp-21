@@ -134,7 +134,7 @@ struct VertexPNC
 class Shader : public Object
 {
 public:
-	Shader() : Object([this]() {return fileName;}) {}
+	Shader() : Object([this]() {return wstring_view(fileName);}) {}
 
 	// シェーダーのパスを指定してコンパイル
 	bool compile(const std::wstring& filePath, const D3D11_INPUT_ELEMENT_DESC* layout, size_t layout_size);

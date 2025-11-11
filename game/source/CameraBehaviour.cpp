@@ -12,14 +12,14 @@ using namespace UniDx;
 
 void CameraBehaviour::OnEnable()
 {
-    Quaternion rot = Quaternion::CreateFromAxisAngle(Vector3(1, 0, 0), 0.3f);
+    Quaternion rot = Quaternion::CreateFromAxisAngle(Vector3(1, 0, 0), 0.6f);
     transform->localRotation = rot;
 }
 
 
 void CameraBehaviour::Update()
 {
-    transform->position = player->transform->position + Vector3(0, 4, -8);
+    transform->position = player->transform->position + Vector3(0, 6, -6);
 
     const float speed = 1;
 

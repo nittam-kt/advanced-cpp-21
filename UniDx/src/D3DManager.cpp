@@ -161,6 +161,7 @@ bool D3DManager::Initialize(HWND hWnd, int width, int height)
 
 	screenSize.x = float(width);
 	screenSize.y = float(height);
+	currentRenderingMode = RenderingMode_Opaque;
 
 	return true;
 }

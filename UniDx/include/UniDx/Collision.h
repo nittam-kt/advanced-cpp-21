@@ -31,4 +31,15 @@ public:
 };
 
 
+// --------------------
+// Raycast の hit 情報
+// --------------------
+struct RaycastHit
+{
+    Collider* collider = nullptr;
+    Vector3 point = Vector3::Zero;
+    Vector3 normal = Vector3::Zero;
+    float distance = 0.0f;
+};
+
 } // namespace UniDx

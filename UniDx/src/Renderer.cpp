@@ -52,16 +52,14 @@ void Renderer::updatePositionCameraCBuffer(const UniDx::Camera& camera) const
 // -----------------------------------------------------------------------------
 // 現在の姿勢とカメラをシェーダーの定数バッファに転送
 // -----------------------------------------------------------------------------
-void Renderer::setShaderForRender() const
+bool Renderer::setMaterialForRender() const
 {
-    if (materials.size() == 0)
-    {
-//        SceneManager::getInstance()->GetDefaultMaterial()->setForRender();
-    }
+    bool ret = false;
     for(auto& material : materials)
     {
-        material->setForRender();
+        ret |= material->setForRender();
     }
+    return ret; // ひとつでも描画対象があれば true
 }
 
 
@@ -73,7 +71,11 @@ void MeshRenderer::Render(const Camera& camera) const
     //-----------------------------
     // シェーダーをセット
     //-----------------------------
-    setShaderForRender();
+    auto required = setMaterialForRender();
+    if (!required)
+    {
+        return;
+    }
 
     // 現在のTransformとカメラの情報をシェーダーのConstantBufferに転送
     updatePositionCameraCBuffer(camera);

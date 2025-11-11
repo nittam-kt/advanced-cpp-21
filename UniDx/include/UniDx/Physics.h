@@ -39,18 +39,6 @@ class BoxGeometory;
 
 
 // --------------------
-// Raycast の hit 情報
-// --------------------
-struct RaycastHit
-{
-    Collider* collider = nullptr;
-    Vector3 point = Vector3::Zero;
-    Vector3 normal = Vector3::Zero;
-    float distance = 0.0f;
-};
-
-
-// --------------------
 // PhysicsActor
 // --------------------
 class  PhysicsActor
@@ -113,9 +101,9 @@ public:
     Collider* getCollider() const { return collider_; }
     bool isValid() const { return collider_ != nullptr; }
     void setInvalid() { collider_ = nullptr; }
-    void initOtherNew() { othersNew_.clear(); collisionsNew_.clear(); }
+    void initOtherNew() { triggersNew_.clear(); collisionsNew_.clear(); }
     void addCollide(const Collision& col) { collisionsNew_.push_back(col); }
-    void addTrigger(Collider* other) { othersNew_.push_back(other); }
+    void addTrigger(Collider* other) { triggersNew_.push_back(other); }
     void collideCallback();
 
 private:
@@ -123,8 +111,8 @@ private:
 
     std::vector<Collision> collisions_;
     std::vector<Collision> collisionsNew_;
-    std::vector<Collider*> others_;
-    std::vector<Collider*> othersNew_;
+    std::vector<Collider*> triggers_;
+    std::vector<Collider*> triggersNew_;
 };
 
 
@@ -146,7 +134,7 @@ public:
 
     // origin, direction, maxDistance, filter (デフォルト nullptr => 全て含める)
     // 戻り値: ヒット情報を含む optional（ヒットしなければ nullopt）
-    bool Raycast(const Vector3& origin, const Vector3& direction, float maxDistance,
+    bool Raycast(Vector3 origin, Vector3 direction, float maxDistance,
         RaycastHit* hitInfo = nullptr, std::function<bool(const Collider*)> filter = nullptr);
 
 private:

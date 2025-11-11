@@ -14,6 +14,8 @@ namespace UniDx {
 
 class Camera;
 class Texture;
+enum RenderingMode;
+
 
 // --------------------
 // Materialクラス
@@ -22,16 +24,17 @@ class Material : public Object
 {
 public:
     Shader shader;
+    Color color;
     ReadOnlyProperty<Texture*> mainTexture;
-    bool zTest;
     D3D11_DEPTH_WRITE_MASK depthWrite;
     D3D11_COMPARISON_FUNC ztest;
+    RenderingMode renderingMode;
 
     // コンストラクタ
     Material();
 
     // マテリアル情報設定。Render()内で呼び出す
-    void setForRender() const;
+    bool setForRender() const;
 
     // テクスチャ追加
     void AddTexture(std::shared_ptr<Texture> tex);
@@ -42,8 +45,9 @@ public:
     std::span<std::shared_ptr<Texture>> getTextures() { return textures; }
 
 protected:
-    ComPtr<ID3D11Buffer> constantBuffer;
+    ComPtr<ID3D11Buffer> constantBuffer1;
     ComPtr<ID3D11DepthStencilState> depthStencilState;
+    ComPtr<ID3D11BlendState> blendState;
 
     std::vector<std::shared_ptr<Texture>> textures;
 };

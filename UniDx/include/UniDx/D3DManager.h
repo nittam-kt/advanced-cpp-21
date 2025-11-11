@@ -18,6 +18,7 @@ constexpr UINT UNIDX_PS_SLOT_NORMAL = 5;  // t5
 
 namespace UniDx{
 
+
 // ----------------------------------------------------------
 // D3DManagerクラス
 // ----------------------------------------------------------
@@ -46,9 +47,12 @@ public:
 	}
 
 	const Vector2& getScreenSize() const { return screenSize; }
+	RenderingMode getCurrentRenderingMode() const { return currentRenderingMode; }
+	void setCurrentCurrentRenderingMode(RenderingMode r) { currentRenderingMode = r; }
 
 private:
 	Vector2                         screenSize;
+	RenderingMode                   currentRenderingMode;
 	ComPtr<ID3D11Device>			m_device; // Direct3Dデバイス
 	ComPtr<ID3D11DeviceContext>		m_context; // Direct3Dデバイスコンテキスト
 	ComPtr<IDXGISwapChain>			m_swapChain; // スワップチェイン

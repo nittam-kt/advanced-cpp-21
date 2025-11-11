@@ -151,6 +151,7 @@
     <ClInclude Include="include\UniDx\Collider.h" />
     <ClInclude Include="include\UniDx\Collision.h" />
     <ClInclude Include="include\UniDx\Component.h" />
+    <ClInclude Include="include\UniDx\ConstantBuffer.h" />
     <ClInclude Include="include\UniDx\D3DManager.h" />
     <ClInclude Include="include\UniDx\Debug.h" />
     <ClInclude Include="include\UniDx\DxUtilCommon.h" />

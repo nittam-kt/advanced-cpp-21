@@ -10,23 +10,13 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "Material.h"
+#include "ConstantBuffer.h"
 
 
 namespace UniDx {
 
 class Camera;
 class Material;
-
-// -----------------------------------------------------------------------------
-// 頂点シェーダー側と共有する、モデルビュー行列の定数バッファ
-//     UniDxではすべてのシェーダーでスロット0番に共通で指定する
-// -----------------------------------------------------------------------------
-struct VSConstantBuffer0
-{
-    Matrix world;
-    Matrix view;
-    Matrix projection;
-};
 
 
 // --------------------
@@ -73,7 +63,7 @@ protected:
 
     virtual void OnEnable() override;
     virtual void updatePositionCameraCBuffer(const UniDx::Camera& camera) const;
-    virtual void setShaderForRender() const;
+    virtual bool setMaterialForRender() const;
 };
 
 
