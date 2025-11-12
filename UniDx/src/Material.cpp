@@ -8,6 +8,54 @@
 
 namespace UniDx{
 
+// BlendMode に対応する D3D11_RENDER_TARGET_BLEND_DESC の定数配列
+namespace
+{
+    static const D3D11_RENDER_TARGET_BLEND_DESC blendModeRTDesc[] = {
+        // BlendMode_Opaque
+        { FALSE,
+            D3D11_BLEND_ONE,           // SrcBlend
+            D3D11_BLEND_ZERO,          // DestBlend
+            D3D11_BLEND_OP_ADD,        // BlendOp
+            D3D11_BLEND_ONE,           // SrcBlendAlpha
+            D3D11_BLEND_ZERO,          // DestBlendAlpha
+            D3D11_BLEND_OP_ADD,        // BlendOpAlpha
+            D3D11_COLOR_WRITE_ENABLE_ALL },
+
+        // BlendMode_Alpha (通常のアルファブレンド: SrcAlpha, 1-SrcAlpha)
+        { TRUE,
+            D3D11_BLEND_SRC_ALPHA,
+            D3D11_BLEND_INV_SRC_ALPHA,
+            D3D11_BLEND_OP_ADD,
+            D3D11_BLEND_ONE,
+            D3D11_BLEND_ZERO,
+            D3D11_BLEND_OP_ADD,
+            D3D11_COLOR_WRITE_ENABLE_ALL },
+
+        // BlendMode_PremultipliedAlpha (前乗算アルファ: One, 1-SrcAlpha)
+        { TRUE,
+            D3D11_BLEND_ONE,
+            D3D11_BLEND_INV_SRC_ALPHA,
+            D3D11_BLEND_OP_ADD,
+            D3D11_BLEND_ONE,
+            D3D11_BLEND_INV_SRC_ALPHA,
+            D3D11_BLEND_OP_ADD,
+            D3D11_COLOR_WRITE_ENABLE_ALL },
+
+        // BlendMode_Additive (加算: SrcAlpha, One)
+        { TRUE,
+            D3D11_BLEND_SRC_ALPHA,
+            D3D11_BLEND_ONE,
+            D3D11_BLEND_OP_ADD,
+            D3D11_BLEND_ONE,
+            D3D11_BLEND_ONE,
+            D3D11_BLEND_OP_ADD,
+            D3D11_COLOR_WRITE_ENABLE_ALL },
+    };
+    static_assert(std::size(blendModeRTDesc) == 4, "Blend mode mapping size must match BlendMode enum count");
+} // namespace
+
+
 // -----------------------------------------------------------------------------
 // コンストラクタ
 // -----------------------------------------------------------------------------
@@ -19,7 +67,8 @@ Material::Material() :
     ),
     depthWrite(D3D11_DEPTH_WRITE_MASK_ALL), // デフォルトは書き込み有効
     ztest(D3D11_COMPARISON_LESS), // デフォルトは小さい値が手前
-    renderingMode(RenderingMode_Opaque)
+    renderingMode(RenderingMode_Opaque), // デフォルトは不透明
+    blendMode(BlendMode_Alpha) // デフォルトは標準ブレンド
 {
 }
 
@@ -29,6 +78,8 @@ Material::Material() :
 // -----------------------------------------------------------------------------
 bool Material::setForRender() const
 {
+    // レンダリングモードが合わない場合は何もしない
+    // レンダーキューを実装していない代わりの実装
     if (renderingMode != D3DManager::getInstance()->getCurrentRenderingMode())
     {
         return false;
@@ -84,21 +135,7 @@ void Material::OnEnable()
     D3DManager::getInstance()->GetDevice()->CreateDepthStencilState(&dsDesc, &depthStencilState);
 
     // ブレンドステート作成
-    D3D11_BLEND_DESC blendDesc = {};
-    blendDesc.AlphaToCoverageEnable = FALSE;
-    blendDesc.IndependentBlendEnable = FALSE;
-
-    D3D11_RENDER_TARGET_BLEND_DESC& rt = blendDesc.RenderTarget[0];
-    rt.BlendEnable = TRUE;
-    rt.SrcBlend = D3D11_BLEND_SRC_ALPHA;
-    rt.DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-    rt.BlendOp = D3D11_BLEND_OP_ADD;
-    rt.SrcBlendAlpha = D3D11_BLEND_ONE;
-    rt.DestBlendAlpha = D3D11_BLEND_ZERO;
-    rt.BlendOpAlpha = D3D11_BLEND_OP_ADD;
-    rt.RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-
-    D3DManager::getInstance()->GetDevice()->CreateBlendState(&blendDesc, &blendState);
+    setBlendMode(blendMode);
 
     // マテリアル用の定数バッファ生成
     D3D11_BUFFER_DESC desc{};
@@ -107,6 +144,19 @@ void Material::OnEnable()
     desc.CPUAccessFlags = 0;
     desc.Usage = D3D11_USAGE_DEFAULT;
     D3DManager::getInstance()->GetDevice()->CreateBuffer(&desc, nullptr, constantBuffer1.GetAddressOf());
+}
+
+
+// -----------------------------------------------------------------------------
+// ブレンドモードを指定してブレンドステートを作成
+// -----------------------------------------------------------------------------
+void Material::setBlendMode(BlendMode e)
+{
+    D3D11_BLEND_DESC blendDesc = {};
+    blendDesc.AlphaToCoverageEnable = FALSE;
+    blendDesc.IndependentBlendEnable = FALSE;
+    blendDesc.RenderTarget[0] = blendModeRTDesc[e];
+    D3DManager::getInstance()->GetDevice()->CreateBlendState(&blendDesc, &blendState);
 }
 
 

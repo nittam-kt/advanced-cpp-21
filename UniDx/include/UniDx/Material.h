@@ -17,6 +17,16 @@ class Texture;
 enum RenderingMode;
 
 
+// Unity のシェーダーグラフに合わせたブレンドモード
+enum BlendMode
+{
+    BlendMode_Opaque,
+    BlendMode_Alpha,
+    BlendMode_PremultipliedAlpha,
+    BlendMode_Additive,
+};
+
+
 // --------------------
 // Materialクラス
 // --------------------
@@ -36,13 +46,18 @@ public:
     // マテリアル情報設定。Render()内で呼び出す
     bool setForRender() const;
 
+    // テクスチャの取得
+    std::span<std::shared_ptr<Texture>> getTextures() { return textures; }
+
     // テクスチャ追加
     void AddTexture(std::shared_ptr<Texture> tex);
 
+    // ブレンドモード
+    BlendMode getBlendMode() const { return blendMode; }
+    void setBlendMode(BlendMode e);
+
     // 有効化
     virtual void OnEnable();
-
-    std::span<std::shared_ptr<Texture>> getTextures() { return textures; }
 
 protected:
     ComPtr<ID3D11Buffer> constantBuffer1;
@@ -50,6 +65,7 @@ protected:
     ComPtr<ID3D11BlendState> blendState;
 
     std::vector<std::shared_ptr<Texture>> textures;
+    BlendMode blendMode;
 };
 
 

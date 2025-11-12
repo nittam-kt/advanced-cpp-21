@@ -57,9 +57,16 @@ public:
     T* operator->() { return getter_(); }
     const T* operator->() const { return getter_(); }
 
+    // ポインタ比較演算
+    template<typename U>
+    bool operator==(U* rhs) const { return getter_() == rhs; }
+    template<typename U>
+    bool operator!=(U* rhs) const { return getter_() != rhs; }
+
 protected:
     Getter getter_;
 };
+
 
 // 読み書きプロパティ
 template<typename T>
