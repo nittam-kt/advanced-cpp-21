@@ -224,12 +224,22 @@ void Engine::render()
     // ライトバッファの更新と転送
     LightManager::getInstance()->updateLightCBuffer();
 
-    // 不透明描画
-    D3DManager::getInstance()->setCurrentCurrentRenderingMode(RenderingMode_Opaque);
-
     Camera* camera = Camera::main;
     if (camera != nullptr)
     {
+        // 不透明描画
+        D3DManager::getInstance()->setCurrentCurrentRenderingMode(RenderingMode_Opaque);
+
+
+        // 各コンポーネントの Render
+        for (auto& it : SceneManager::getInstance()->GetActiveScene()->GetRootGameObjects())
+        {
+            render(&*it, *camera);
+        }
+    
+        // 半透明描画
+        D3DManager::getInstance()->setCurrentCurrentRenderingMode(RenderingMode_Transparent);
+
         // 各コンポーネントの Render
         for (auto& it : SceneManager::getInstance()->GetActiveScene()->GetRootGameObjects())
         {
